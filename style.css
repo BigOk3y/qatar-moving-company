@@ -1,0 +1,938 @@
+/* ============================================================
+   RESET
+   ============================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+    --navbar-height: 70px;
+    --navy:   rgb(11, 35, 65);
+    --cream:  #f7edcf;
+    --gold:   rgb(197, 155, 60);
+    --orange: #EE6F4B;
+    --max-w:  1200px;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+body {
+    font-family: "Poppins", sans-serif;
+    font-style: normal;
+    color: #333;
+    background-color: rgba(232, 207, 126, 0.37);
+    /* FIX: pushes ALL content below the fixed navbar — no per-container hacks needed */
+    padding-top: var(--navbar-height);
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 150%;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+nav {
+    background-color: var(--cream);
+    box-shadow: 1.5px 1.5px 10px 1.5px rgba(11, 35, 65, 0.485);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    height: var(--navbar-height);
+}
+
+nav .navcontainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: var(--navbar-height);
+    max-width: var(--max-w);
+    margin: auto;
+    padding: 0 20px;
+    position: relative; /* needed for mobile dropdown positioning */
+}
+
+nav .navcontainer .nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 4px;
+}
+
+nav .navcontainer .nav-links li {
+    height: 34px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+}
+
+nav .navcontainer .nav-links li a {
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: nowrap;
+}
+
+nav .navcontainer .nav-links li:hover {
+    background-color: var(--gold);
+}
+
+nav .navcontainer .nav-links li a:hover {
+    color: #fff;
+}
+
+.navlogo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    flex-shrink: 0;
+}
+
+/* ============================================================
+   HAMBURGER  (hidden on desktop)
+   ============================================================ */
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    z-index: 1001;
+}
+
+.nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    /* FIX: was white — invisible on the cream navbar background */
+    background-color: var(--navy);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.nav-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+.nav-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.6rem 1.4rem;
+    font-family: "Poppins", sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease, transform 0.1s ease;
+    min-height: 44px; /* meets Apple/Google touch target guideline */
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background-color: var(--navy);
+    color: #fff;
+    box-shadow: 1.5px 1.5px 10px 1.5px rgba(11, 35, 65, 0.227);
+}
+
+.btn-primary:hover {
+    background-color: rgba(11, 35, 65, 0.85);
+    color: #fff;
+}
+
+.btn-primary1 {
+    background-color: var(--cream);
+    color: var(--navy);
+    box-shadow: 1.5px 1.5px 10px 1.5px rgba(11, 35, 65, 0.227);
+}
+
+.btn-primary1:hover {
+    background-color: #efe0af;
+    color: var(--navy);
+}
+
+/* ============================================================
+   LAYOUT  CONTAINERS
+   ============================================================ */
+.container {
+    max-width: var(--max-w);
+    margin: auto;
+    /* FIX: removed overflow:hidden (was eating padding and causing navbar climbing)
+            removed hardcoded pixel padding-top — body padding-top now handles navbar offset */
+    padding: 40px 20px 0;
+}
+
+.middleContainer {
+    width: 100%;
+    margin-top: 50px;
+    background-color: var(--navy);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.cauroselcontainer {
+    width: 100%;
+    display: flex;
+    /* FIX: "justify-content: space" is not valid — corrected to space-between */
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    padding-bottom: 40px;
+}
+
+.hero-text {
+    /* FIX: was fixed width:500px — overflowed on small screens */
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.hero-text h1 {
+    /* FIX: was fixed width:400px */
+    font-size: clamp(30px, 4vw, 52px);
+    font-weight: 600;
+    line-height: 120%;
+    letter-spacing: 0.25px;
+    color: var(--navy);
+}
+
+.hero-text h3 {
+    /* FIX: was fixed width:400px */
+    padding-top: 15px;
+    font-size: clamp(14px, 1.8vw, 20px);
+    font-weight: 500;
+    line-height: 150%;
+    letter-spacing: 0.5px;
+    color: var(--navy);
+}
+
+/* ============================================================
+   CAROUSEL
+   ============================================================ */
+.carousel {
+    position: relative;
+    z-index: 1;
+    /* FIX: changed from max-width to fixed width so pixel-based JS math is exact */
+    width: 600px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    touch-action: pan-y;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.4s ease;
+}
+
+.carousel-slide {
+    flex-shrink: 0;
+    width: 600px;
+    height: 350px; /* fixed height — images crop via object-fit */
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    border: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    font-size: 1rem;
+}
+
+.carousel-btn:hover {
+    background: rgba(0, 0, 0, 0.65);
+}
+
+.carousel-btn.prev { left: 12px; }
+.carousel-btn.next { right: 12px; }
+
+.carousel-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+}
+
+.dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #fff;
+}
+
+/* ============================================================
+   SERVICE CARDS  (section 1)
+   ============================================================ */
+.serviceContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 30px 0;
+    gap: 16px;
+}
+
+.serviceCard {
+    /* FIX: was fixed width:500px — overflowed on small screens */
+    flex: 1;
+    min-width: 0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.serviceLogo {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    transition: width 0.2s ease, height 0.2s ease;
+}
+
+.serviceLogo:hover {
+    width: 110px;
+    height: 110px;
+}
+
+.cardText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.cardText h3 {
+    padding: 5px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: 0.5px;
+    color: var(--navy);
+}
+
+.cardText p {
+    /* FIX: "padding:5" had no unit — changed to padding:5px */
+    padding: 5px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.5px;
+    color: var(--navy);
+    text-align: center;
+}
+
+/* ============================================================
+   BENEFITS SECTION
+   ============================================================ */
+.top {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.top h1 {
+    /* FIX: was fixed 80px — use clamp so it scales down on small screens */
+    font-size: clamp(26px, 5vw, 70px);
+    font-weight: 700;
+    text-align: center;
+    line-height: 130%;
+    letter-spacing: 0.25px;
+    color: var(--navy);
+    margin-top: 30px;
+}
+
+.middle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-top: 60px;
+    gap: 30px;
+    padding-bottom: 60px;
+}
+
+.box-4 {
+    /* FIX: was fixed 570px — now flex-based */
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: rgba(11, 35, 65, 0.805);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.box-4a {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.box-4a h1 {
+    font-size: clamp(24px, 3vw, 40px);
+    font-weight: 600;
+    line-height: 120%;
+    letter-spacing: 0.25px;
+    color: var(--cream);
+}
+
+.box-4a p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.5px;
+    padding-top: 5px;
+    color: var(--cream);
+}
+
+.box-4b {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.box-4bi {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px;
+}
+
+.box-4bi h2 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 150%;
+    letter-spacing: 0.25px;
+    color: var(--cream);
+}
+
+.box-4bi p {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.5px;
+    color: var(--cream);
+}
+
+.box-4c {
+    margin-top: 16px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-5 {
+    /* FIX: was fixed 570px */
+    flex: 1;
+    min-width: 0;
+    min-height: 480px;
+    border-radius: 10px;
+    background-image: url(https://imgur.com/MLSGOwn.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* ============================================================
+   HOW IT WORKS  (middleContainer)
+   ============================================================ */
+.serviceContainer2 {
+    width: 100%;
+    max-width: var(--max-w);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.serviceCard2 {
+    /* FIX: was fixed 500px */
+    flex: 1;
+    min-width: 0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.serviceLogo2 {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    transition: width 0.2s ease, height 0.2s ease;
+}
+
+.serviceLogo2:hover {
+    width: 110px;
+    height: 110px;
+}
+
+.cardText2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.cardText2 h3 {
+    padding: 5px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: 0.5px;
+    color: var(--cream);
+}
+
+.cardText2 p {
+    /* FIX: "padding:5" had no unit */
+    padding: 5px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.5px;
+    color: var(--cream);
+    text-align: center;
+}
+
+/* ============================================================
+   CONTACT SECTION
+   ============================================================ */
+.bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 40px 0 60px;
+}
+
+.box-7 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.box-7a {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.box-7a h1 {
+    font-size: clamp(24px, 3vw, 40px);
+    font-weight: 600;
+    line-height: 120%;
+    letter-spacing: 0.25px;
+    color: var(--navy);
+}
+
+.box-7a p {
+    padding-top: 15px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.5px;
+    color: var(--navy);
+}
+
+.contactserviceContainer {
+    flex-shrink: 0;
+    width: 380px;
+    border-radius: 20px;
+    border: 6px solid var(--navy);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--cream);
+    padding: 20px;
+    gap: 16px;
+}
+
+.contactserviceCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.contactserviceLogo {
+    width: 80px;
+    height: 80px;
+    padding: 8px;
+    transition: width 0.2s ease, height 0.2s ease;
+}
+
+.contactserviceLogo:hover {
+    width: 90px;
+    height: 90px;
+}
+
+.contactcardText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.contactcardText h3 {
+    padding: 3px 5px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 150%;
+    letter-spacing: 0.5px;
+    color: var(--navy);
+}
+
+.contactcardText p {
+    /* FIX: "padding:5" had no unit */
+    padding: 3px 5px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 150%;
+    letter-spacing: 0.5px;
+    color: var(--navy);
+    text-align: center;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 40px 20px 20px;
+    font-family: "Poppins", sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: var(--max-w);
+    margin: auto;
+    gap: 20px;
+}
+
+.footer-about,
+.footer-links,
+.footer-contact {
+    flex: 1 1 250px;
+}
+
+.footer h3 {
+    margin-bottom: 15px;
+    color: #f2f2f2;
+}
+
+.footer p,
+.footer a {
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.6;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: var(--orange);
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+}
+
+.social-icons a {
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    margin-top: 20px;
+    border-top: 1px solid #333;
+    font-size: 13px;
+    color: #777;
+}
+
+/* ============================================================
+   RESPONSIVE — 1100px  (benefits section stacks)
+   ============================================================ */
+@media (max-width: 1100px) {
+    .middle {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .box-5 {
+        min-height: 350px;
+    }
+}
+
+/* ============================================================
+   RESPONSIVE — 900px  (hero stacks)
+   ============================================================ */
+@media (max-width: 900px) {
+    .cauroselcontainer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-text {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .carousel,
+    .carousel-slide {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .carousel-slide {
+        height: 300px;
+    }
+
+    .carousel-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================================================
+   RESPONSIVE — 768px  (hamburger menu)
+   ============================================================ */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: flex;
+    }
+
+    /* Mobile nav dropdown — overlays content, keeps nav fixed height */
+    nav .navcontainer .nav-links {
+        display: none;
+        position: absolute;
+        top: var(--navbar-height);
+        left: 0;
+        right: 0;
+        background-color: var(--cream);
+        box-shadow: 0 4px 10px rgba(11, 35, 65, 0.2);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 20px 16px;
+        gap: 4px;
+        z-index: 999;
+    }
+
+    /* FIX: was "nav .container ul" — wrong selector, never matched */
+    nav .navcontainer .nav-links.open {
+        display: flex;
+    }
+
+    nav .navcontainer .nav-links li {
+        width: 100%;
+        height: 44px;
+        border-radius: 6px;
+        justify-content: flex-start;
+        padding: 0 12px;
+        margin-right: 0;
+    }
+
+    nav .navcontainer .nav-links li a {
+        justify-content: flex-start;
+    }
+
+    /* Service cards wrap into 2-column grid on tablet */
+    .serviceContainer {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .serviceCard {
+        flex: 1 1 140px;
+        max-width: 200px;
+    }
+
+    /* How it works stacks vertically */
+    .serviceContainer2 {
+        flex-direction: column;
+        align-items: center;
+        padding: 30px 20px;
+    }
+
+    .serviceCard2 {
+        width: 100%;
+        max-width: 420px;
+    }
+
+    /* Contact stacks */
+    .box-7 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+    }
+
+    .contactserviceContainer {
+        width: 100%;
+    }
+
+    /* Button full-width on small screens */
+    .btn {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .footer-container {
+        flex-direction: column;
+    }
+}
+
+/* ============================================================
+   RESPONSIVE — 480px  (mobile)
+   ============================================================ */
+@media (max-width: 480px) {
+    .carousel-slide {
+        height: 240px;
+    }
+
+    .carousel-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+    }
+
+    .carousel-btn.prev { left: 6px; }
+    .carousel-btn.next { right: 6px; }
+
+    .dot {
+        width: 7px;
+        height: 7px;
+    }
+
+    /* Service cards single column on small phones */
+    .serviceCard {
+        flex: 1 1 100%;
+        max-width: 280px;
+    }
+
+    /* Contact card stacks icons vertically */
+    .contactserviceContainer {
+        flex-direction: column;
+        height: auto;
+        padding: 24px 20px;
+        gap: 20px;
+    }
+
+    .footer-about,
+    .footer-links,
+    .footer-contact {
+        flex: 1 1 auto;
+    }
+}
