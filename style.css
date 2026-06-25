@@ -528,11 +528,12 @@ nav .navcontainer .nav-links li a:hover {
    ============================================================ */
 .serviceContainer2 {
     width: 100%;
+    min-height: 400px;
     max-width: var(--max-w);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     gap: 20px;
 }
 
