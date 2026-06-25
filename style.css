@@ -593,10 +593,11 @@ nav .navcontainer .nav-links li a:hover {
    ============================================================ */
 .bottom {
     width: 100%;
+    min-height: 400px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     padding: 40px 0 60px;
 }
 
