@@ -120,3 +120,58 @@ if (navToggle && navLinks) {
         }
     });
 }
+
+/* ============================================================
+   FAQ ACCORDION
+   ============================================================ */
+document.querySelectorAll('.faq-question').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+
+        // Close all
+        document.querySelectorAll('.faq-item.open').forEach(openItem => {
+            openItem.classList.remove('open');
+            openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+
+        // Open clicked (unless it was already open)
+        if (!isOpen) {
+            item.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+        }
+    });
+});
+
+/* ============================================================
+   STATS COUNTER ANIMATION
+   Counts up when the stats bar scrolls into view
+   ============================================================ */
+function animateCounter(el) {
+    const target = parseInt(el.getAttribute('data-target'), 10);
+    const duration = 1600; // ms
+    const start = performance.now();
+
+    function step(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target);
+        if (progress < 1) requestAnimationFrame(step);
+        else el.textContent = target;
+    }
+    requestAnimationFrame(step);
+}
+
+const statsBar = document.querySelector('.stats-bar');
+if (statsBar) {
+    let counted = false;
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !counted) {
+            counted = true;
+            document.querySelectorAll('.stat-number[data-target]').forEach(animateCounter);
+        }
+    }, { threshold: 0.4 });
+    observer.observe(statsBar);
+}
