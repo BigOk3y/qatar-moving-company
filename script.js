@@ -1,141 +1,139 @@
 /* ============================================================
-   CAROUSEL
+   NAVBAR — active link highlight + hamburger toggle + scroll shadow
    ============================================================ */
-const carousel = document.getElementById('myCarousel');
-const track = carousel.querySelector('.carousel-track');
-const slides = Array.from(track.children);
-const nextBtn = carousel.querySelector('.next');
-const prevBtn = carousel.querySelector('.prev');
-const dotsContainer = carousel.querySelector('.carousel-dots');
+(function () {
+    const nav       = document.querySelector('nav');
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks  = document.querySelector('.nav-links');
 
-let index = 0;
-let carouselWidth = carousel.offsetWidth;
+    // Nav scroll shadow
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 10);
+    }, { passive: true });
 
-// Build dots
-slides.forEach((_, i) => {
-    const dot = document.createElement('div');
-    dot.classList.add('dot');
-    if (i === 0) dot.classList.add('active');
-    dot.addEventListener('click', () => goTo(i));
-    dotsContainer.appendChild(dot);
-});
-const dots = Array.from(dotsContainer.children);
+    // Mark current page as active
+    const current = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        const href = link.getAttribute('href').split('/').pop();
+        if (href === current) link.closest('li').classList.add('active');
+    });
 
-function syncWidth() {
-    carouselWidth = carousel.offsetWidth;
-}
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function () {
+            const expanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', String(!expanded));
+            navLinks.classList.toggle('open');
+        });
 
-function update(animate = true) {
-    track.style.transition = animate ? 'transform 0.4s ease' : 'none';
-    track.style.transform = `translateX(-${index * carouselWidth}px)`;
-    dots.forEach(d => d.classList.remove('active'));
-    dots[index].classList.add('active');
-}
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.setAttribute('aria-expanded', 'false');
+                navLinks.classList.remove('open');
+            });
+        });
 
-function goTo(i) {
-    index = (i + slides.length) % slides.length;
-    update();
-}
-
-nextBtn.addEventListener('click', () => goTo(index + 1));
-prevBtn.addEventListener('click', () => goTo(index - 1));
-
-// Autoplay
-let autoplay = setInterval(() => goTo(index + 1), 4000);
-function pauseAutoplay() { clearInterval(autoplay); }
-function resumeAutoplay() { autoplay = setInterval(() => goTo(index + 1), 4000); }
-
-carousel.addEventListener('mouseenter', pauseAutoplay);
-carousel.addEventListener('mouseleave', resumeAutoplay);
-
-// Touch / swipe support
-let startX = 0;
-let isDragging = false;
-
-carousel.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].clientX;
-    isDragging = true;
-    pauseAutoplay();
-}, { passive: true });
-
-carousel.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    const diff = e.touches[0].clientX - startX;
-    track.style.transition = 'none';
-    track.style.transform = `translateX(${-(index * carouselWidth) + diff}px)`;
-}, { passive: true });
-
-carousel.addEventListener('touchend', (e) => {
-    if (!isDragging) return;
-    isDragging = false;
-    const diff = e.changedTouches[0].clientX - startX;
-    if (diff > 50)       { goTo(index - 1); }
-    else if (diff < -50) { goTo(index + 1); }
-    else                 { update(); }
-    resumeAutoplay();
-});
-
-// Keyboard navigation
-carousel.setAttribute('tabindex', '0');
-carousel.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft')  goTo(index - 1);
-    if (e.key === 'ArrowRight') goTo(index + 1);
-});
-
-// Recalculate on resize (handles breakpoints changing carousel width)
-window.addEventListener('resize', () => {
-    syncWidth();
-    update(false); // snap without animating
-});
+        document.addEventListener('click', (e) => {
+            if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                navToggle.setAttribute('aria-expanded', 'false');
+                navLinks.classList.remove('open');
+            }
+        });
+    }
+})();
 
 /* ============================================================
-   HAMBURGER MENU
-   FIX: was inline in index.html — querySelector('.nav-links') returned
-   null because the <ul> had no class, throwing a JS error and
-   breaking the menu entirely.
+   CAROUSEL
    ============================================================ */
-const navToggle = document.querySelector('.nav-toggle');
-const navLinks  = document.querySelector('.nav-links'); // now works — class added to <ul>
+(function () {
+    const carousel = document.getElementById('myCarousel');
+    if (!carousel) return;
 
-if (navToggle && navLinks) {
-    navToggle.addEventListener('click', function () {
-        const expanded = this.getAttribute('aria-expanded') === 'true';
-        this.setAttribute('aria-expanded', String(!expanded));
-        navLinks.classList.toggle('open');
+    const track    = carousel.querySelector('.carousel-track');
+    const slides   = Array.from(track.children);
+    const nextBtn  = carousel.querySelector('.next');
+    const prevBtn  = carousel.querySelector('.prev');
+    const dotsWrap = carousel.querySelector('.carousel-dots');
+
+    let idx = 0;
+    let w   = carousel.offsetWidth;
+
+    slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(dot);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function update(animate = true) {
+        w = carousel.offsetWidth;
+        track.style.transition = animate ? 'transform 0.4s ease' : 'none';
+        track.style.transform  = `translateX(-${idx * w}px)`;
+        dots.forEach(d => d.classList.remove('active'));
+        dots[idx].classList.add('active');
+        // also update slide widths on resize
+        slides.forEach(s => { s.style.width = w + 'px'; });
+    }
+
+    function goTo(i) {
+        idx = (i + slides.length) % slides.length;
+        update();
+    }
+
+    nextBtn.addEventListener('click', () => goTo(idx + 1));
+    prevBtn.addEventListener('click', () => goTo(idx - 1));
+
+    let autoplay = setInterval(() => goTo(idx + 1), 4000);
+    carousel.addEventListener('mouseenter', () => clearInterval(autoplay));
+    carousel.addEventListener('mouseleave', () => {
+        autoplay = setInterval(() => goTo(idx + 1), 4000);
     });
 
-    // Close menu when a link is clicked
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.setAttribute('aria-expanded', 'false');
-            navLinks.classList.remove('open');
-        });
+    // Touch / swipe
+    let startX = 0, dragging = false;
+    carousel.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX; dragging = true;
+        clearInterval(autoplay);
+    }, { passive: true });
+    carousel.addEventListener('touchmove', e => {
+        if (!dragging) return;
+        track.style.transition = 'none';
+        track.style.transform  = `translateX(${-(idx * w) + (e.touches[0].clientX - startX)}px)`;
+    }, { passive: true });
+    carousel.addEventListener('touchend', e => {
+        if (!dragging) return; dragging = false;
+        const diff = e.changedTouches[0].clientX - startX;
+        if (diff > 50) goTo(idx - 1);
+        else if (diff < -50) goTo(idx + 1);
+        else update();
+        autoplay = setInterval(() => goTo(idx + 1), 4000);
     });
 
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
-            navToggle.setAttribute('aria-expanded', 'false');
-            navLinks.classList.remove('open');
-        }
+    // Keyboard
+    carousel.setAttribute('tabindex', '0');
+    carousel.addEventListener('keydown', e => {
+        if (e.key === 'ArrowLeft')  goTo(idx - 1);
+        if (e.key === 'ArrowRight') goTo(idx + 1);
     });
-}
+
+    window.addEventListener('resize', () => update(false));
+    update(false);
+})();
 
 /* ============================================================
    FAQ ACCORDION
    ============================================================ */
 document.querySelectorAll('.faq-question').forEach(btn => {
     btn.addEventListener('click', () => {
-        const item = btn.closest('.faq-item');
+        const item   = btn.closest('.faq-item');
         const isOpen = item.classList.contains('open');
 
-        // Close all
-        document.querySelectorAll('.faq-item.open').forEach(openItem => {
-            openItem.classList.remove('open');
-            openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        document.querySelectorAll('.faq-item.open').forEach(open => {
+            open.classList.remove('open');
+            open.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
         });
 
-        // Open clicked (unless it was already open)
         if (!isOpen) {
             item.classList.add('open');
             btn.setAttribute('aria-expanded', 'true');
@@ -145,33 +143,84 @@ document.querySelectorAll('.faq-question').forEach(btn => {
 
 /* ============================================================
    STATS COUNTER ANIMATION
-   Counts up when the stats bar scrolls into view
    ============================================================ */
-function animateCounter(el) {
-    const target = parseInt(el.getAttribute('data-target'), 10);
-    const duration = 1600; // ms
-    const start = performance.now();
+(function () {
+    const statsBar = document.querySelector('.stats-bar');
+    if (!statsBar) return;
 
-    function step(now) {
-        const elapsed = now - start;
-        const progress = Math.min(elapsed / duration, 1);
-        // Ease-out cubic
-        const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = Math.floor(eased * target);
-        if (progress < 1) requestAnimationFrame(step);
-        else el.textContent = target;
+    function animateCounter(el) {
+        const target   = parseInt(el.getAttribute('data-target'), 10);
+        const duration = 1600;
+        const start    = performance.now();
+        function step(now) {
+            const p = Math.min((now - start) / duration, 1);
+            const e = 1 - Math.pow(1 - p, 3); // ease-out cubic
+            el.textContent = Math.floor(e * target);
+            if (p < 1) requestAnimationFrame(step);
+            else el.textContent = target;
+        }
+        requestAnimationFrame(step);
     }
-    requestAnimationFrame(step);
-}
 
-const statsBar = document.querySelector('.stats-bar');
-if (statsBar) {
     let counted = false;
-    const observer = new IntersectionObserver((entries) => {
+    new IntersectionObserver(entries => {
         if (entries[0].isIntersecting && !counted) {
             counted = true;
             document.querySelectorAll('.stat-number[data-target]').forEach(animateCounter);
         }
-    }, { threshold: 0.4 });
-    observer.observe(statsBar);
-}
+    }, { threshold: 0.4 }).observe(statsBar);
+})();
+
+/* ============================================================
+   CONTACT FORM — client-side fake submit + validation
+   ============================================================ */
+(function () {
+    const form    = document.getElementById('quoteForm');
+    const success = document.getElementById('formSuccess');
+    if (!form) return;
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+
+        // Basic validation highlight
+        let valid = true;
+        form.querySelectorAll('[required]').forEach(field => {
+            if (!field.value.trim()) {
+                field.style.borderColor = '#e74c3c';
+                valid = false;
+            } else {
+                field.style.borderColor = '';
+            }
+        });
+        if (!valid) return;
+
+        // Simulate async submission
+        const btn = form.querySelector('.form-submit');
+        btn.textContent = 'Sending…';
+        btn.disabled    = true;
+
+        setTimeout(() => {
+            form.style.display    = 'none';
+            if (success) success.style.display = 'block';
+        }, 1200);
+    });
+})();
+
+/* ============================================================
+   SCROLL-REVEAL  (lightweight fade-in on scroll)
+   ============================================================ */
+(function () {
+    const els = document.querySelectorAll('.reveal');
+    if (!els.length) return;
+
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12 });
+
+    els.forEach(el => obs.observe(el));
+})();

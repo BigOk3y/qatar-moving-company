@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us — Qatar Moving Services</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+    <div class="navcontainer">
+        <div class="navlogo">
+            <a href="index.html">
+                <img src="https://imgur.com/w1dExRB.png" alt="Qatar Moving Services logo" width="80" height="80">
+            </a>
+        </div>
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="contact.html" class="nav-cta">Get a Quote</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+    <p class="breadcrumb"><a href="index.html">Home</a> &rsaquo; Contact</p>
+    <h1>Get in Touch</h1>
+    <p>Request a free quote, ask a question, or book your move. We'll get back to you within a few hours.</p>
+</div>
+
+<!-- CONTACT GRID -->
+<div class="contact-page-grid">
+
+    <!-- LEFT: Contact Info -->
+    <div class="contact-info reveal">
+        <h2>We're Ready When You Are</h2>
+        <p>Whether you're planning a move next week or just exploring your options, our team is happy to walk you through everything. Fill in the form, call us, or message us on WhatsApp — whatever works for you.</p>
+
+        <div class="contact-detail">
+            <div class="icon-circle">📞</div>
+            <div>
+                <h4>Phone</h4>
+                <p><a href="tel:+97474089629">+974 7408 9629</a></p>
+                <p>Sat–Thu: 7 AM – 9 PM &nbsp;|&nbsp; Fri: 2 PM – 9 PM</p>
+            </div>
+        </div>
+
+        <div class="contact-detail">
+            <div class="icon-circle">💬</div>
+            <div>
+                <h4>WhatsApp</h4>
+                <p><a href="https://wa.me/97474089629" target="_blank" rel="noopener">Chat with us on WhatsApp</a></p>
+                <p>Fastest response — usually under 30 minutes</p>
+            </div>
+        </div>
+
+        <div class="contact-detail">
+            <div class="icon-circle">✉️</div>
+            <div>
+                <h4>Email</h4>
+                <p><a href="mailto:info@qatarmoving.qa">info@qatarmoving.qa</a></p>
+                <p>We reply within 4 business hours</p>
+            </div>
+        </div>
+
+        <div class="contact-detail">
+            <div class="icon-circle">📍</div>
+            <div>
+                <h4>Office</h4>
+                <p>Industrial Area, Street 35<br>Doha, Qatar</p>
+            </div>
+        </div>
+
+        <!-- Quick links to services -->
+        <div style="margin-top: 36px; padding: 24px; background: rgba(11,35,65,0.05); border-radius: 12px; border-left: 4px solid var(--gold);">
+            <h4 style="font-size:0.95rem; font-weight:700; color:var(--navy); margin-bottom:10px;">Not sure what you need?</h4>
+            <p style="font-size:0.87rem; color:#555; margin-bottom:14px;">Browse our service packages and pricing to get an idea before you enquire.</p>
+            <a href="services.html" class="btn btn-outline-navy" style="font-size:0.85rem; padding:0.5rem 1.2rem;">View Services &amp; Pricing</a>
+        </div>
+    </div>
+
+    <!-- RIGHT: Quote Form -->
+    <div class="quote-form-wrap reveal">
+        <h2>Request a Free Quote</h2>
+        <p>Fill in the details below and we'll prepare a tailored estimate for your move.</p>
+
+        <form id="quoteForm" novalidate>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" placeholder="Ahmed" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" placeholder="Al-Mansouri" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Phone / WhatsApp *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+974 XXXX XXXX" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com">
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="moveType">Type of Move *</label>
+                    <select id="moveType" name="moveType" required>
+                        <option value="" disabled selected>Select move type</option>
+                        <option>Residential (Apartment)</option>
+                        <option>Residential (Villa)</option>
+                        <option>Office / Commercial</option>
+                        <option>International</option>
+                        <option>Storage Only</option>
+                        <option>Packing Only</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="moveDate">Preferred Move Date *</label>
+                    <input type="date" id="moveDate" name="moveDate" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="fromArea">Moving From (area) *</label>
+                    <input type="text" id="fromArea" name="fromArea" placeholder="e.g. West Bay, Doha" required>
+                </div>
+                <div class="form-group">
+                    <label for="toArea">Moving To (area) *</label>
+                    <input type="text" id="toArea" name="toArea" placeholder="e.g. Lusail, Qatar" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="bedrooms">Property Size</label>
+                <select id="bedrooms" name="bedrooms">
+                    <option value="" disabled selected>Select size</option>
+                    <option>Studio / 1 Bedroom</option>
+                    <option>2 Bedrooms</option>
+                    <option>3 Bedrooms</option>
+                    <option>4+ Bedrooms / Villa</option>
+                    <option>Office (Small – under 20 desks)</option>
+                    <option>Office (Large – 20+ desks)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="notes">Additional Notes</label>
+                <textarea id="notes" name="notes" placeholder="Any special items (piano, antiques, safes), access restrictions, or anything else we should know…"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary form-submit">Send My Quote Request</button>
+            <p class="form-note">🔒 Your details are kept private and never shared. We'll contact you within a few hours.</p>
+        </form>
+
+        <!-- Success state -->
+        <div id="formSuccess" class="form-success">
+            <div class="checkmark">✅</div>
+            <h3>Quote Request Received!</h3>
+            <p>Thank you — our team will review your details and get back to you within a few hours. In the meantime, feel free to reach us on WhatsApp for a faster response.</p>
+            <a href="https://wa.me/97474089629" class="btn btn-gold" style="margin-top:20px;" target="_blank" rel="noopener">
+                Chat on WhatsApp
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<!-- MAP PLACEHOLDER -->
+<div class="map-section">
+    <div class="map-placeholder">
+        <div class="map-icon">📍</div>
+        <h3>Find Us in Doha</h3>
+        <p>Industrial Area, Street 35 — Doha, Qatar</p>
+        <a href="https://maps.google.com/?q=Doha+Qatar+Industrial+Area" target="_blank" rel="noopener" class="btn btn-gold" style="margin-top:16px;">
+            Open in Google Maps
+        </a>
+    </div>
+</div>
+
+<!-- FAQ STRIP -->
+<div class="section">
+    <div class="faq-section" style="padding-top:0;">
+        <div class="section-label">
+            <span class="label-line"></span>
+            <span>Quick Answers</span>
+            <span class="label-line"></span>
+        </div>
+        <h2 class="section-title">Common Questions</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    How quickly can I get a quote?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>For most standard moves, we can provide a ballpark estimate by phone or WhatsApp within minutes. For larger or more complex moves, we recommend scheduling a free visual survey — this usually takes 20–30 minutes and ensures you get the most accurate quote.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    Can I book a last-minute move?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes — we do accommodate urgent and same-day requests where capacity allows. Call us directly on +974 7408 9629 for the fastest response for time-sensitive bookings.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-question" aria-expanded="false">
+                    Do you offer free surveys?
+                    <span class="faq-icon">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Absolutely. For any move involving a 3-bedroom home or larger, we recommend a free, no-obligation visual survey to give you the most accurate quote. Contact us to arrange a convenient time.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FABs -->
+<a href="https://wa.me/97474089629" class="fab fab-whatsapp" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.103 1.518 5.829L.057 23.886a.5.5 0 0 0 .611.611l6.101-1.457A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.882a9.844 9.844 0 0 1-5.031-1.378l-.36-.214-3.733.892.908-3.65-.234-.374A9.847 9.847 0 0 1 2.118 12C2.118 6.533 6.533 2.118 12 2.118S21.882 6.533 21.882 12 17.467 21.882 12 21.882z"/>
+    </svg>
+</a>
+<a href="tel:+97474089629" class="fab fab-phone" aria-label="Call Us">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="26" height="26">
+        <path d="M6.62 10.79a15.053 15.053 0 0 0 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.21 2.2z"/>
+    </svg>
+</a>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-about">
+            <div class="footer-logo">
+                <img src="https://imgur.com/w1dExRB.png" alt="Qatar Moving Services">
+            </div>
+            <p>Qatar's most trusted moving company. We handle residential, commercial, and specialty moves across Doha and beyond.</p>
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><img src="https://img.icons8.com/ios-filled/20/facebook-new.png" alt="Facebook"></a>
+                <a href="#" aria-label="Instagram"><img src="https://img.icons8.com/ios-filled/20/instagram-new.png" alt="Instagram"></a>
+                <a href="#" aria-label="Twitter"><img src="https://img.icons8.com/ios-filled/20/twitter.png" alt="Twitter"></a>
+            </div>
+        </div>
+        <div class="footer-links">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h3>Services</h3>
+            <ul>
+                <li><a href="services.html">Residential Moving</a></li>
+                <li><a href="services.html">Office Relocation</a></li>
+                <li><a href="services.html">Packing &amp; Unpacking</a></li>
+                <li><a href="services.html">Secure Storage</a></li>
+                <li><a href="services.html">International Moves</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h3>Contact</h3>
+            <p>📞 <a href="tel:+97474089629">+974 7408 9629</a></p>
+            <p>✉️ <a href="mailto:info@qatarmoving.qa">info@qatarmoving.qa</a></p>
+            <p>📍 Doha, Qatar</p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2025 Qatar Moving Services — BigOak Corp. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+</html>
