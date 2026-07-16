@@ -36,30 +36,82 @@
 </nav>
 
 <!-- ============================================================
-     HERO
+     HERO — fullscreen, dark-overlay image + lead-gen quote form
      ============================================================ -->
-<section class="hero-section">
-    <div class="hero-text">
-        <p class="eyebrow">Qatar's Trusted Moving Company</p>
-        <h1>Website for Sale,<br>Whatsapp BigOak Corp.<br>74089629.</h1>
-        <p>Professional residential and commercial relocation across Doha and all of Qatar — upfront pricing, fully insured, zero stress.</p>
-        <div class="hero-cta">
-            <a href="contact.html" class="btn btn-primary">Get a Free Quote</a>
-            <a href="services.html" class="btn btn-outline-navy">Our Services</a>
-        </div>
+<section class="hero-lead">
+    <div class="hero-lead-media">
+        <img src="https://images.unsplash.com/photo-1715645948484-da40dd56bc93?auto=format&fit=crop&w=2400&q=80" alt="Professional mover loading boxes into a moving truck" loading="eager">
+        <div class="hero-lead-scrim"></div>
     </div>
-
-    <div class="carousel" id="myCarousel" aria-label="Moving service images">
-        <div class="carousel-track">
-            <div class="carousel-slide"><img src="https://imgur.com/mFIMLBr.png" alt="Moving crew at work"></div>
-            <div class="carousel-slide"><img src="https://imgur.com/MLSGOwn.png" alt="Careful packing service"></div>
-            <div class="carousel-slide"><img src="https://imgur.com/yxZPUae.png" alt="Professional movers"></div>
+    <div class="hero-lead-inner">
+        <div class="hero-lead-text">
+            <p class="eyebrow" style="color:var(--gold);">Qatar's Trusted Moving Company</p>
+            <h1>Stress-Free Moving Starts Here</h1>
+            <p>Upfront pricing, fully insured crews, and a team that treats every box like it's their own — get a free quote in under a minute.</p>
+            <div class="hero-lead-badges">
+                <span>✅ Fully Licensed &amp; Insured</span>
+                <span>⭐ 5-Star Rated</span>
+            </div>
         </div>
-        <button class="carousel-btn prev" aria-label="Previous slide">&#10094;</button>
-        <button class="carousel-btn next" aria-label="Next slide">&#10095;</button>
-        <div class="carousel-dots"></div>
+
+        <!-- Multi-step quote card -->
+        <div class="hero-quote-card" id="quoteCard">
+            <div class="quote-progress" aria-hidden="true">
+                <span class="quote-dot active" data-dot="1"></span>
+                <span class="quote-dot" data-dot="2"></span>
+                <span class="quote-dot" data-dot="3"></span>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="quote-step active" data-step="1">
+                <h3>Get a Free Instant Quote</h3>
+                <div class="form-group">
+                    <label for="qFrom">Moving From</label>
+                    <input type="text" id="qFrom" placeholder="City or ZIP code">
+                </div>
+                <div class="form-group">
+                    <label for="qTo">Moving To</label>
+                    <input type="text" id="qTo" placeholder="City or ZIP code">
+                </div>
+                <button type="button" class="btn btn-primary quote-btn" id="quoteNext">Next →</button>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="quote-step" data-step="2">
+                <button type="button" class="quote-back" id="quoteBack" aria-label="Go back">← Back</button>
+                <h3>Almost There!</h3>
+                <div class="form-group">
+                    <label for="qEmail">Email Address</label>
+                    <input type="email" id="qEmail" placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="qWhatsapp">WhatsApp Number</label>
+                    <input type="tel" id="qWhatsapp" placeholder="+974 XXXX XXXX">
+                </div>
+                <button type="button" class="btn btn-primary quote-btn" id="quoteSubmit">Get My Quote →</button>
+            </div>
+
+            <!-- Success -->
+            <div class="quote-step quote-success" data-step="3">
+                <div class="quote-success-icon">✅</div>
+                <h3>Success!</h3>
+                <p>We are calculating your details. A copy of your quote will be sent to your email and WhatsApp shortly.</p>
+            </div>
+        </div>
     </div>
 </section>
+
+<!-- ============================================================
+     TRUST BANNER
+     ============================================================ -->
+<div class="trust-banner">
+    <div class="trust-banner-inner">
+        <div class="trust-item"><span class="trust-icon">🛡️</span><span>Fully Licensed &amp; Insured</span></div>
+        <div class="trust-item"><span class="trust-icon">⭐</span><span>5-Star Rated by Clients</span></div>
+        <div class="trust-item"><span class="trust-icon">💰</span><span>Upfront, No-Surprise Pricing</span></div>
+        <div class="trust-item"><span class="trust-icon">🕐</span><span>On-Time, Every Time</span></div>
+    </div>
+</div>
 
 <!-- ============================================================
      SERVICE CARDS ROW
@@ -67,31 +119,24 @@
 <div class="services-row reveal">
     <div class="service-card">
         <div class="icon-wrap">
-            <img src="https://imgur.com/DtXiU58.png" alt="Residential Moving">
+            <img src="https://images.unsplash.com/photo-1758523670991-ee93bc48d81d?auto=format&fit=crop&w=300&q=80" alt="Local Moving">
         </div>
-        <h3>Residential Moving</h3>
-        <p>Careful, efficient apartment and villa moves tailored around your schedule.</p>
+        <h3>Local Moving</h3>
+        <p>Careful, efficient apartment and villa moves anywhere across Doha and Qatar.</p>
     </div>
     <div class="service-card">
         <div class="icon-wrap">
-            <img src="https://imgur.com/vee42Pb.png" alt="Office Relocation">
+            <img src="https://images.unsplash.com/photo-1720811559395-3ed8d1b16649?auto=format&fit=crop&w=300&q=80" alt="Long Distance Moving">
         </div>
-        <h3>Office Relocation</h3>
-        <p>Minimal downtime office moves — weeknight and weekend slots available.</p>
+        <h3>Long Distance</h3>
+        <p>Cross-country and international relocations, tracked door-to-door with full insurance.</p>
     </div>
     <div class="service-card">
         <div class="icon-wrap">
-            <img src="https://imgur.com/dJm6eGU.png" alt="Pro Packing">
+            <img src="https://images.unsplash.com/photo-1758351507026-71ad3645cb43?auto=format&fit=crop&w=300&q=80" alt="Packing Services">
         </div>
-        <h3>Pro Packing &amp; Unpacking</h3>
-        <p>Full-service packing with premium materials — every item handled with care.</p>
-    </div>
-    <div class="service-card">
-        <div class="icon-wrap">
-            <img src="https://imgur.com/RDV02Lu.png" alt="Secure Storage">
-        </div>
-        <h3>Secure Storage</h3>
-        <p>Climate-controlled units in Doha, short or long term, GPS-tracked.</p>
+        <h3>Packing Services</h3>
+        <p>Full-service packing with premium materials — every item wrapped and labeled with care.</p>
     </div>
 </div>
 
@@ -145,7 +190,7 @@
             <div class="icon-wrap">
                 <img src="https://imgur.com/Wm34qhU.png" alt="Get Estimate">
             </div>
-            <h3>Get Your Custom Estimate</h3>
+            <h3>Get a Quote</h3>
             <p>Fill out our quick online form or call us for a free, no-obligation visual survey of your space.</p>
         </div>
         <div class="how-card reveal">
@@ -153,7 +198,7 @@
             <div class="icon-wrap">
                 <img src="https://imgur.com/J6BpuNx.png" alt="Pack and Transport">
             </div>
-            <h3>We Pack &amp; Transport</h3>
+            <h3>We Pack &amp; Load</h3>
             <p>Our uniformed crew arrives on time to securely pack, load, and drive your belongings to the new location.</p>
         </div>
         <div class="how-card reveal">
@@ -161,7 +206,7 @@
             <div class="icon-wrap">
                 <img src="https://imgur.com/cYgOdnu.png" alt="Settle In">
             </div>
-            <h3>You Settle In</h3>
+            <h3>Welcome Home</h3>
             <p>We unload, unpack, and place your furniture exactly where you want it. Just walk in and feel at home.</p>
         </div>
     </div>

@@ -1,4 +1,66 @@
 /* ============================================================
+   HERO MULTI-STEP QUOTE FORM
+   ============================================================ */
+(function () {
+    const card = document.getElementById('quoteCard');
+    if (!card) return;
+
+    const steps   = Array.from(card.querySelectorAll('.quote-step'));
+    const dots    = Array.from(card.querySelectorAll('.quote-dot'));
+    const nextBtn = document.getElementById('quoteNext');
+    const backBtn = document.getElementById('quoteBack');
+    const submitBtn = document.getElementById('quoteSubmit');
+
+    const fFrom = document.getElementById('qFrom');
+    const fTo   = document.getElementById('qTo');
+    const fEmail = document.getElementById('qEmail');
+    const fWhatsapp = document.getElementById('qWhatsapp');
+
+    function goToStep(n) {
+        steps.forEach(s => s.classList.toggle('active', Number(s.dataset.step) === n));
+        dots.forEach(d => d.classList.toggle('active', Number(d.dataset.dot) === n));
+    }
+
+    function markInvalid(field, invalid) {
+        if (!field) return;
+        field.style.borderColor = invalid ? '#e74c3c' : '';
+    }
+
+    nextBtn.addEventListener('click', () => {
+        const fromOk = fFrom.value.trim().length > 0;
+        const toOk   = fTo.value.trim().length > 0;
+        markInvalid(fFrom, !fromOk);
+        markInvalid(fTo, !toOk);
+        if (!fromOk || !toOk) return;
+        goToStep(2);
+    });
+
+    backBtn.addEventListener('click', () => goToStep(1));
+
+    submitBtn.addEventListener('click', () => {
+        const emailOk = /\S+@\S+\.\S+/.test(fEmail.value.trim());
+        const waOk    = fWhatsapp.value.trim().length >= 7;
+        markInvalid(fEmail, !emailOk);
+        markInvalid(fWhatsapp, !waOk);
+        if (!emailOk || !waOk) return;
+
+        submitBtn.textContent = 'Sending…';
+        submitBtn.disabled = true;
+
+        // Simulate async submission — in production this would post
+        // qFrom/qTo/qEmail/qWhatsapp to a backend or WhatsApp API.
+        setTimeout(() => {
+            goToStep(3);
+        }, 700);
+    });
+
+    // Clear the red error outline as soon as the visitor starts typing
+    [fFrom, fTo, fEmail, fWhatsapp].forEach(f => {
+        if (f) f.addEventListener('input', () => markInvalid(f, false));
+    });
+})();
+
+/* ============================================================
    NAVBAR — active link highlight + hamburger toggle + scroll shadow
    ============================================================ */
 (function () {
